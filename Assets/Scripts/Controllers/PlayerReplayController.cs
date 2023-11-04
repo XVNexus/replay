@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public enum ReplayDifficulty : int
@@ -67,9 +66,10 @@ public class PlayerReplayController : MonoBehaviour
         }
     }
 
-    // When the level is completed, current ghost replays will quickly leave the level
+    // When the level is completed, current ghost replays will have colission disabled and quickly leave the level
     public void OnLevelComplete()
     {
         abandonLevel = true;
+        Destroy(GetComponent<BoxCollider2D>());
     }
 }

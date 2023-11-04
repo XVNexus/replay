@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 0.1; flex-direction: row; flex-wrap: nowrap;">
+            <ui:Label tabindex="-1" text="Level XX" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LabelLevel" style="-unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Montserrat-Regular.ttf?fileID=12800000&amp;guid=6c7669fb3c30839c5923170e0e80a785&amp;type=3#Montserrat-Regular&apos;); font-size: 20px; color: rgb(128, 255, 255); -unity-text-align: middle-left; -unity-font-style: bold; margin-left: 2%;" />
+            <ui:Label tabindex="-1" text="Score: XXX" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LabelScore" style="-unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Montserrat-Regular.ttf?fileID=12800000&amp;guid=6c7669fb3c30839c5923170e0e80a785&amp;type=3#Montserrat-Regular&apos;); font-size: 20px; color: rgb(255, 255, 128); -unity-text-align: middle-right; -unity-font-style: normal; margin-right: 2%; margin-left: auto;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

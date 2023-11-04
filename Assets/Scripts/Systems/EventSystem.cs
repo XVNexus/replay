@@ -21,4 +21,8 @@ public class EventSystem : MonoBehaviour
     // Triggered when the player collects any star
     public void TriggerStarCollected() => OnStarCollected?.Invoke();
     public event Action OnStarCollected;
+
+    // Send new data to the ui to display
+    public void TriggerUpdateUi(int? levelIndex, int? score) => OnUpdateUi?.Invoke(levelIndex, score);
+    public event Action<int?, int?> OnUpdateUi;
 }

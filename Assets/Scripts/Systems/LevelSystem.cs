@@ -34,13 +34,12 @@ public class LevelSystem : MonoBehaviour
     public void OnPlayerDie(Vector2 spawnPoint, Vector2[] positionHistory)
     {
         scores[currentLevel] += REWARD_DEATH;
+        EventSystem.current.TriggerUpdateUi(null, scores[currentLevel]);
     }
 
     // Destroy the current level and transition to the next level
     public void OnLevelComplete()
     {
-        Debug.Log($"Score for level {currentLevel + 1}: {scores[currentLevel]}");
-
         UnloadCurrentLevel();
         currentLevel++;
         LoadLevel(currentLevel);
@@ -50,6 +49,7 @@ public class LevelSystem : MonoBehaviour
     public void OnStarCollected()
     {
         scores[currentLevel] += REWARD_STAR;
+        EventSystem.current.TriggerUpdateUi(null, scores[currentLevel]);
     }
 
     // Load a level by the given index
@@ -59,6 +59,7 @@ public class LevelSystem : MonoBehaviour
         {
             currentLevelObject = Instantiate(levelPrefabs[levelIndex], Vector2.zero, Quaternion.identity);
             scores[levelIndex] = SCORE_BASE;
+            EventSystem.current.TriggerUpdateUi(levelIndex, SCORE_BASE);
         }
         else
         {

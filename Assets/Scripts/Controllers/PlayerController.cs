@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
     const float PLAYER_RADIUS = 1f;
+    const int MAX_REPLAY_FRAMES = 100; // Up to 2 seconds of replay data
     readonly Color COLOR_MAIN = new(1f, .75f, .25f);
     readonly Color COLOR_GHOST = new(.25f, .75f, 1f);
 
@@ -91,13 +93,20 @@ public class PlayerController : MonoBehaviour
         transform.position = spawnpoint;
     }
 
-    // If the player is not a ghost, emit an event containing the replay data and reset the player and replaying recorder
+    // If the player is not a ghost, emit an event containing the replay data and reset the player and replay recorder
     public void Kill()
     {
         if (!ghostMode)
         {
+            Vector2[] positionHistoryArray = new Vector2[Mathf.Min(positionHistory.Count, MAX_REPLAY_FRAMES)];
+            var startIndex = Mathf.Max(0, positionHistory.Count - MAX_REPLAY_FRAMES);
+            for (var i = startIndex; i < positionHistory.Count; i++)
+            {
+                positionHistoryArray[i - startIndex] = positionHistory[i];
+            }
+            EventSystem.current.TriggerPlayerDie(spawnpoint, positionHistoryArray);
+
             transform.position = spawnpoint;
-            EventSystem.current.TriggerPlayerDie(spawnpoint, positionHistory.ToArray());
             ResetReplayData();
         }
     }
