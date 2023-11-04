@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class LevelSystem : MonoBehaviour
 {
+    const int SCORE_BASE = 100;
+    const int REWARD_DEATH = -10;
+    const int REWARD_STAR = 50;
+
     [Header("References")]
     public GameObject[] levelPrefabs;
 
@@ -10,34 +14,42 @@ public class LevelSystem : MonoBehaviour
 
     private GameObject currentLevelObject = null;
     private int currentLevel = 0;
-    private int[] ghostCounts;
+    private int[] scores;
 
     public void Start()
     {
         // Subscribe to events
         EventSystem.current.OnPlayerDie += OnPlayerDie;
         EventSystem.current.OnLevelComplete += OnLevelComplete;
+        EventSystem.current.OnStarCollected += OnStarCollected;
 
         // Initialize ghost tracker
-        ghostCounts = new int[levelPrefabs.Length];
+        scores = new int[levelPrefabs.Length];
 
         // Load level 1
         LoadLevel(currentLevel);
     }
 
-    // Incremement level ghost counter
+    // Give the player a punishment for every ghost they use to encrouage using the least amount of ghosts possible
     public void OnPlayerDie(Vector2 spawnPoint, Vector2[] positionHistory)
     {
-        ghostCounts[currentLevel]++;
+        scores[currentLevel] += REWARD_DEATH;
     }
 
     // Destroy the current level and transition to the next level
     public void OnLevelComplete()
     {
-        Debug.Log($"Ghost count for level {currentLevel + 1}: {ghostCounts[currentLevel]}");
+        Debug.Log($"Score for level {currentLevel + 1}: {scores[currentLevel]}");
+
         UnloadCurrentLevel();
         currentLevel++;
         LoadLevel(currentLevel);
+    }
+
+    // Give the player a reward when a star is collected
+    public void OnStarCollected()
+    {
+        scores[currentLevel] += REWARD_STAR;
     }
 
     // Load a level by the given index
@@ -46,6 +58,7 @@ public class LevelSystem : MonoBehaviour
         if (!isLevelLoaded)
         {
             currentLevelObject = Instantiate(levelPrefabs[levelIndex], Vector2.zero, Quaternion.identity);
+            scores[levelIndex] = SCORE_BASE;
         }
         else
         {

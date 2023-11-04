@@ -17,4 +17,8 @@ public class EventSystem : MonoBehaviour
     // Signals where to move the player on the newly loaded level
     public void TriggerSpawn(Vector2 spawnpoint) => OnSpawn?.Invoke(spawnpoint);
     public event Action<Vector2> OnSpawn;
+
+    // Triggered when the player collects any star
+    public void TriggerStarCollected() => OnStarCollected?.Invoke();
+    public event Action OnStarCollected;
 }

@@ -21,7 +21,7 @@ public class PlayerReplayController : MonoBehaviour
     public void Start()
     {
         // Subscribe to events
-        
+        EventSystem.current.OnLevelComplete += OnLevelComplete;
 
         // Set speed based on difficulty level
         replaySpeed = difficulty switch
