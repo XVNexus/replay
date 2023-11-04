@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private List<Vector2> positionHistory = new();
     private bool recordingStarted = false;
+    private Vector3 lastPosition = Vector3.zero;
 
     // Start is called before the first frame update
     public void Start()
@@ -47,6 +48,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnDestroy()
+    {
+        // Unsubscribe from events
+        EventSystem.current.OnLevelComplete -= OnLevelComplete;
+        EventSystem.current.OnSpawn -= OnSpawn;
+    }
+
     // Add the current position to the history every physics update
     public void FixedUpdate()
     {
@@ -56,10 +64,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // If recording has started, save the current position to the replay data
-        if (recordingStarted)
+        // If recording has started and the player has moved since the last frame, save the current position to the replay data
+        if (recordingStarted && transform.position != lastPosition)
         {
             positionHistory.Add(transform.position);
+            lastPosition = transform.position;
         }
         // If the player has moved outside of the spawn point, start recording for a replay
         else if (Mathf.Abs(transform.position.x - spawnpoint.x) > PLAYER_RADIUS

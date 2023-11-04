@@ -34,6 +34,12 @@ public class PlayerReplayController : MonoBehaviour
         };
     }
 
+    public void OnDestroy()
+    {
+        // Unsubscribe from events
+        EventSystem.current.OnLevelComplete -= OnLevelComplete;
+    }
+
     // Update is called once per frame
     public void FixedUpdate()
     {
