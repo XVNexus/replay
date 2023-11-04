@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     readonly Color COLOR_GHOST = new(.25f, .75f, 1f);
 
     [Header("General")]
-    public Vector2 spawnPoint = new(-8f, 0f);
+    public Vector2 spawnpoint = new(0f, 0f);
     public bool ghostMode = false;
 
     [Header("References")]
@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        // Subscribe to events
+        EventSystem.current.OnLevelComplete += OnLevelComplete;
+        EventSystem.current.OnSpawn += OnSpawn;
+
         // Figure out which color to use
         var color = ghostMode ? COLOR_GHOST : COLOR_MAIN;
 
@@ -58,11 +62,24 @@ public class PlayerController : MonoBehaviour
             positionHistory.Add(transform.position);
         }
         // If the player has moved outside of the spawn point, start recording for a replay
-        else if (Mathf.Abs(transform.position.x - spawnPoint.x) > PLAYER_RADIUS
-            || Mathf.Abs(transform.position.y - spawnPoint.y) > PLAYER_RADIUS)
+        else if (Mathf.Abs(transform.position.x - spawnpoint.x) > PLAYER_RADIUS
+            || Mathf.Abs(transform.position.y - spawnpoint.y) > PLAYER_RADIUS)
         {
             recordingStarted = true;
         }
+    }
+
+    // Reset the replay data when the level is completed successfully
+    public void OnLevelComplete()
+    {
+        ResetReplayData();
+    }
+
+    // When the level is loaded, save the spawnpoint locally and move to that position
+    public void OnSpawn(Vector2 spawnpoint)
+    {
+        this.spawnpoint = spawnpoint;
+        transform.position = spawnpoint;
     }
 
     // If the player is not a ghost, emit an event containing the replay data and reset the player and replaying recorder
@@ -70,10 +87,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!ghostMode)
         {
-            EventSystem.current.TriggerPlayerDie(spawnPoint, positionHistory.ToArray());
-            transform.position = spawnPoint;
-            positionHistory.Clear();
-            recordingStarted = false;
+            EventSystem.current.TriggerPlayerDie(spawnpoint, positionHistory.ToArray());
+            transform.position = spawnpoint;
         }
+    }
+
+    public void ResetReplayData()
+    {
+        positionHistory.Clear();
+        recordingStarted = false;
     }
 }

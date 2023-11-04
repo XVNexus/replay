@@ -1,14 +1,33 @@
+using TMPro;
 using UnityEngine;
+
+public enum ReplayDifficulty : int
+{
+    TUTORIAL, EASY, MEDIUM, HARD
+}
 
 public class PlayerReplayController : MonoBehaviour
 {
     [Header("General")]
-    public float replaySpeed = .1f;
+    public ReplayDifficulty difficulty = ReplayDifficulty.EASY;
 
     [Header("Data")]
     public Vector2[] positionHistory;
 
+    private float replaySpeed = 0f;
     private float positionFrame = 0f;
+
+    public void Start()
+    {
+        replaySpeed = difficulty switch
+        {
+            ReplayDifficulty.TUTORIAL => .1f,
+            ReplayDifficulty.EASY => .25f,
+            ReplayDifficulty.MEDIUM => .5f,
+            ReplayDifficulty.HARD => .75f,
+            _ => 0f
+        };
+    }
 
     // Update is called once per frame
     public void FixedUpdate()

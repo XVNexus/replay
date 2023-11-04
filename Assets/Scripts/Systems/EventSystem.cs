@@ -11,6 +11,10 @@ public class EventSystem : MonoBehaviour
     public event Action<Vector2, Vector2[]> OnPlayerDie;
 
     // Initiates a level transition
-    public void TriggerLevelComplete(int currentLevel, int ghostCount) => OnLevelComplete?.Invoke(currentLevel, ghostCount);
-    public event Action<int, int> OnLevelComplete;
+    public void TriggerLevelComplete() => OnLevelComplete?.Invoke();
+    public event Action OnLevelComplete;
+
+    // Signals where to move the player on the newly loaded level
+    public void TriggerSpawn(Vector2 spawnpoint) => OnSpawn?.Invoke(spawnpoint);
+    public event Action<Vector2> OnSpawn;
 }

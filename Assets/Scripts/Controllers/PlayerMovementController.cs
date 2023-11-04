@@ -16,11 +16,11 @@ public class PlayerMovementController : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        // Save a reference to the rigidbody component
-        rb = GetComponent<Rigidbody2D>();
-
         // Subcribe to events
         EventSystem.current.OnPlayerDie += OnPlayerDie;
+
+        // Save a reference to the rigidbody component
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
