@@ -16,9 +16,14 @@ public class PlayerReplayController : MonoBehaviour
 
     private float replaySpeed = 0f;
     private float positionFrame = 0f;
+    private bool abandonLevel = false;
 
     public void Start()
     {
+        // Subscribe to events
+        
+
+        // Set speed based on difficulty level
         replaySpeed = difficulty switch
         {
             ReplayDifficulty.TUTORIAL => .1f,
@@ -48,5 +53,17 @@ public class PlayerReplayController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // After the level is complete, accelerate the replay until it runs out of position history
+        if (abandonLevel)
+        {
+            replaySpeed += Time.fixedDeltaTime * 10f;
+        }
+    }
+
+    // When the level is completed, current ghost replays will quickly leave the level
+    public void OnLevelComplete()
+    {
+        abandonLevel = true;
     }
 }

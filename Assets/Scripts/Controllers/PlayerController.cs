@@ -87,8 +87,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!ghostMode)
         {
-            EventSystem.current.TriggerPlayerDie(spawnpoint, positionHistory.ToArray());
             transform.position = spawnpoint;
+            EventSystem.current.TriggerPlayerDie(spawnpoint, positionHistory.ToArray());
+            ResetReplayData();
         }
     }
 
