@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     [Header("General")]
     public float moveSpeed = 10f;
     public float moveForce = 10f;
     public float jumpForce = 10f;
 
+    [Header("References")]
+    public SensorController sensorControllerComponent;
+
     private Rigidbody2D rb;
     private bool isGrounded;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         // Save a reference to the rigidbody component
         rb = GetComponent<Rigidbody2D>();
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         // Check if on the ground
         isGrounded = Physics2D.Raycast(transform.position - new Vector3(0f, 0.51f), Vector2.down, 0.1f);
@@ -35,14 +36,14 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(new Vector2(horizontalInput * moveSpeed - rb.velocity.x, 0f) * moveForce);
 
         // Apply jump
-        if (isGrounded && verticalInput > 0)
+        if (sensorControllerComponent.isTriggered && verticalInput > 0)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    void OnPlayerDie(Vector2 spawnPoint, List<Vector2> positionHistory) {
+    public void OnPlayerDie(Vector2 spawnPoint, Vector2[] positionHistory)
+    {
         rb.velocity = Vector2.zero;
-        rb.position = spawnPoint;
     }
 }
