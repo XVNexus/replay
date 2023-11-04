@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRendererComponent;
     public Light2D light2dComponent;
 
+    private List<Vector2> positionHistory = new();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,9 +41,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Add the current position to the history every physics update
+    public void FixedUpdate() {
+        positionHistory.Add(transform.position);
+    }
+
     // Reset the player back to the spawn point
     public void Kill()
     {
-        transform.position = spawnPoint;
+        EventSystem.current.TriggerPlayerDie(spawnPoint, positionHistory);
     }
 }

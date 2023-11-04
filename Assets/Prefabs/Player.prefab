@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {x: -8, y: 0}
-  ghostMode: 0
+  ghostMode: 1
   spriteRendererComponent: {fileID: 5367435035373178646}
   light2dComponent: {fileID: 8282584482869245781}
 --- !u!1 &7232589373274071605

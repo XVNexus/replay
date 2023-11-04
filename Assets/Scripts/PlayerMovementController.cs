@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // Save a reference to the rigidbody component
         rb = GetComponent<Rigidbody2D>();
+
+        // Subcribe to events
+        EventSystem.current.OnPlayerDie += OnPlayerDie;
     }
 
     // Update is called once per frame
@@ -36,5 +39,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
         }
+    }
+
+    void OnPlayerDie(Vector2 spawnPoint, List<Vector2> positionHistory) {
+        rb.velocity = Vector2.zero;
+        rb.position = spawnPoint;
     }
 }
