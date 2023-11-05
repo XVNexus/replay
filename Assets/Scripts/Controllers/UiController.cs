@@ -22,7 +22,6 @@ public class UiController : MonoBehaviour
 
     public void OnUpdateUi(int? levelIndex, int? score)
     {
-        Debug.Log("update ui");
         if (levelIndex != null)
         {
             labelLevel.text = $"Level {levelIndex + 1}";

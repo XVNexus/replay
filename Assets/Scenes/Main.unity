@@ -603,8 +603,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPrefabs:
-  - {fileID: 4373044357843588884, guid: 0c798753526d9b7cf9243de1e0c365fc, type: 3}
-  - {fileID: 4373044357843588884, guid: 81716c58e518ca4398d00833f4e85988, type: 3}
+  - {fileID: 4373044357843588884, guid: ed2612e8e7b571d5f8a249bfa8b56fe4, type: 3}
+  - {fileID: 4373044357843588884, guid: cb765f04f72d0a01a8029cb0791bfa2b, type: 3}
+  - {fileID: 4373044357843588884, guid: 75ad0fb2b6f56059089bbe70bb3d3b08, type: 3}
+  - {fileID: 4373044357843588884, guid: 4e96c29eab5790f71b2607f1e937951c, type: 3}
+  - {fileID: 4373044357843588884, guid: 992077310f8a5e582b8f2b110d12f1b9, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
