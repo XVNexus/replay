@@ -69,9 +69,9 @@ public class LevelSystem : MonoBehaviour
         var isEndLevel = levelIndex == levelPrefabs.Length;
         var levelPrefab = isEndLevel ? endLevelPrefab : levelPrefabs[levelIndex];
         currentLevelObject = Instantiate(levelPrefab, Vector2.zero, Quaternion.identity);
-        currentLevelObject.transform.position = new Vector3(0f, -10f);
-        LeanTween.moveLocalY(currentLevelObject, 0f, .75f)
-            .setDelay(.5f)
+        currentLevelObject.transform.position = new Vector3(0f, -12f);
+        LeanTween.moveLocalY(currentLevelObject, 0f, .6f)
+            .setDelay(.4f)
             .setEaseOutExpo();
         scores[levelIndex] = SCORE_BASE;
         EventSystem.current.TriggerUpdateUi(isEndLevel ? -1 : levelIndex, SCORE_BASE);
@@ -86,7 +86,7 @@ public class LevelSystem : MonoBehaviour
         }
 
         var levelToUnload = currentLevelObject;
-        LeanTween.moveY(levelToUnload, 10f, .75f)
+        LeanTween.moveY(levelToUnload, 12f, .6f)
             .setEaseInExpo()
             .setOnComplete(() => Destroy(levelToUnload));
     }
