@@ -53,10 +53,12 @@ public class PlayerReplayController : MonoBehaviour
             transform.position = positionLerp;
             positionFrame += replaySpeed;
         }
-        // When the replay runs out of data, delete this ghost
+        // When the replay runs out of data, scale this ghost out of view and then delete it
         else
         {
-            Destroy(gameObject);
+            LeanTween.scale(gameObject, Vector3.zero, .5f)
+                .setEaseOutExpo()
+                .setOnComplete(() => Destroy(gameObject));
         }
 
         // After the level is complete, accelerate the replay until it runs out of position history

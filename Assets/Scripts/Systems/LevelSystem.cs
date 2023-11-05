@@ -11,8 +11,6 @@ public class LevelSystem : MonoBehaviour
     public GameObject[] levelPrefabs;
     public GameObject endLevelPrefab;
 
-    public bool isLevelLoaded { get => currentLevelObject != null; }
-
     private GameObject currentLevelObject = null;
     private int currentLevel = 0;
     private int[] scores;
@@ -44,12 +42,11 @@ public class LevelSystem : MonoBehaviour
         UnloadCurrentLevel();
         if (currentLevel < levelPrefabs.Length - 1)
         {
-            currentLevel++;
-            LoadLevel(currentLevel);
+            LoadLevel(++currentLevel);
         }
         else
         {
-            var _ = Instantiate(endLevelPrefab, Vector2.zero, Quaternion.identity);
+            Instantiate(endLevelPrefab, Vector2.zero, Quaternion.identity);
             var highscore = 0;
             for (var i = 0; i < levelPrefabs.Length; i++)
             {
@@ -69,29 +66,28 @@ public class LevelSystem : MonoBehaviour
     // Load a level by the given index
     public void LoadLevel(int levelIndex)
     {
-        if (!isLevelLoaded)
-        {
-            currentLevelObject = Instantiate(levelPrefabs[levelIndex], Vector2.zero, Quaternion.identity);
-            scores[levelIndex] = SCORE_BASE;
-            EventSystem.current.TriggerUpdateUi(levelIndex, SCORE_BASE);
-        }
-        else
-        {
-            throw new InvalidOperationException("Cannot load a level while one is already active");
-        }
+        var isEndLevel = levelIndex == levelPrefabs.Length;
+        var levelPrefab = isEndLevel ? endLevelPrefab : levelPrefabs[levelIndex];
+        currentLevelObject = Instantiate(levelPrefab, Vector2.zero, Quaternion.identity);
+        currentLevelObject.transform.position = new Vector3(0f, -10f);
+        LeanTween.moveLocalY(currentLevelObject, 0f, .5f)
+            .setDelay(.5f)
+            .setEaseOutExpo();
+        scores[levelIndex] = SCORE_BASE;
+        EventSystem.current.TriggerUpdateUi(isEndLevel ? -1 : levelIndex, SCORE_BASE);
     }
 
     // Unload whatever level is active right now
     public void UnloadCurrentLevel()
     {
-        if (isLevelLoaded)
-        {
-            Destroy(currentLevelObject);
-            currentLevelObject = null;
-        }
-        else
+        if (currentLevelObject == null)
         {
             throw new InvalidOperationException("Cannot unload a level while nothing is loaded");
         }
+
+        var levelToUnload = currentLevelObject;
+        LeanTween.moveY(levelToUnload, 10f, .5f)
+            .setEaseInExpo()
+            .setOnComplete(() => Destroy(levelToUnload));
     }
 }

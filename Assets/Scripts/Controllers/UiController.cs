@@ -39,11 +39,11 @@ public class UiController : MonoBehaviour
         {
             if (levelIndex != -1)
             {
-                labelLevel.text = $"Score: {score}";
+                labelScore.text = $"Level Score: {score}";
             }
             else
             {
-                labelScore.text = $"Highscore: {score}";
+                labelScore.text = $"Total Score: {score}";
             }
         }
     }

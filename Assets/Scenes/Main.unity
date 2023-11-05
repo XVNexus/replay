@@ -468,6 +468,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5367435035373178646, guid: a89ad94eddacd535d9c0dbd724d44f0b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367435035373178646, guid: a89ad94eddacd535d9c0dbd724d44f0b, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -484,6 +488,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2931823111676775717, guid: d8621c793c721abb38760e04a2c0e124, type: 3}
+      propertyPath: destroyOnContact
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4190299940130802382, guid: d8621c793c721abb38760e04a2c0e124, type: 3}
       propertyPath: m_Name
       value: Killzone
@@ -612,6 +620,11 @@ MonoBehaviour:
   - {fileID: 4373044357843588884, guid: 75ad0fb2b6f56059089bbe70bb3d3b08, type: 3}
   - {fileID: 4373044357843588884, guid: 4e96c29eab5790f71b2607f1e937951c, type: 3}
   - {fileID: 4373044357843588884, guid: 992077310f8a5e582b8f2b110d12f1b9, type: 3}
+  - {fileID: 4373044357843588884, guid: 8d18a0e28e060194c8b6aa49cac9fce4, type: 3}
+  - {fileID: 4373044357843588884, guid: 473c3229bce065a4da2dae6ad4b7fee7, type: 3}
+  - {fileID: 4373044357843588884, guid: e91d0bb7e7b6e074e8bf23430a1dc2ac, type: 3}
+  - {fileID: 4373044357843588884, guid: f1477cdb760e04041941f21771745e34, type: 3}
+  - {fileID: 4373044357843588884, guid: d9875eba20785324b84064ed47a5d3fd, type: 3}
   endLevelPrefab: {fileID: 4373044357843588884, guid: 9de83824d257ddece8019db174f675eb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
