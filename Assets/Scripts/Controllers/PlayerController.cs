@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     const float PLAYER_RADIUS = 1f;
     const int MAX_REPLAY_FRAMES = 100; // Up to 2 seconds of replay data
-    readonly Color COLOR_MAIN = new(1f, .75f, .25f);
-    readonly Color COLOR_GHOST = new(.25f, .75f, 1f);
+    readonly Color COLOR_MAIN = new(1f, .66f, 0f);
+    readonly Color COLOR_GHOST = new(0f, .66f, 1f);
 
     [Header("General")]
     public Vector2 spawnpoint = new(0f, 0f);
