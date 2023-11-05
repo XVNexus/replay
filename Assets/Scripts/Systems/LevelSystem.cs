@@ -9,6 +9,7 @@ public class LevelSystem : MonoBehaviour
 
     [Header("References")]
     public GameObject[] levelPrefabs;
+    public GameObject endLevelPrefab;
 
     public bool isLevelLoaded { get => currentLevelObject != null; }
 
@@ -37,12 +38,25 @@ public class LevelSystem : MonoBehaviour
         EventSystem.current.TriggerUpdateUi(null, scores[currentLevel]);
     }
 
-    // Destroy the current level and transition to the next level
+    // Destroy the current level and transition to the next level, or go to end screen if no more levels
     public void OnLevelComplete()
     {
         UnloadCurrentLevel();
-        currentLevel++;
-        LoadLevel(currentLevel);
+        if (currentLevel < levelPrefabs.Length - 1)
+        {
+            currentLevel++;
+            LoadLevel(currentLevel);
+        }
+        else
+        {
+            var _ = Instantiate(endLevelPrefab, Vector2.zero, Quaternion.identity);
+            var highscore = 0;
+            for (var i = 0; i < levelPrefabs.Length; i++)
+            {
+                highscore += scores[i];
+            }
+            EventSystem.current.TriggerUpdateUi(-1, highscore);
+        }
     }
 
     // Give the player a reward when a star is collected

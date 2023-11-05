@@ -20,16 +20,31 @@ public class UiController : MonoBehaviour
         EventSystem.current.OnUpdateUi += OnUpdateUi;
     }
 
+    // Update the top labels to show a specific score and level number, or pass -1 level index to show end screen text
     public void OnUpdateUi(int? levelIndex, int? score)
     {
         if (levelIndex != null)
         {
-            labelLevel.text = $"Level {levelIndex + 1}";
+            if (levelIndex != -1)
+            {
+                labelLevel.text = $"Level {levelIndex + 1}";
+            }
+            else
+            {
+                labelLevel.text = "You win!";
+            }
         }
 
         if (score != null)
         {
-            labelScore.text = $"Score: {score}";
+            if (levelIndex != -1)
+            {
+                labelLevel.text = $"Score: {score}";
+            }
+            else
+            {
+                labelScore.text = $"Highscore: {score}";
+            }
         }
     }
 }

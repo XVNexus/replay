@@ -612,6 +612,7 @@ MonoBehaviour:
   - {fileID: 4373044357843588884, guid: 75ad0fb2b6f56059089bbe70bb3d3b08, type: 3}
   - {fileID: 4373044357843588884, guid: 4e96c29eab5790f71b2607f1e937951c, type: 3}
   - {fileID: 4373044357843588884, guid: 992077310f8a5e582b8f2b110d12f1b9, type: 3}
+  endLevelPrefab: {fileID: 4373044357843588884, guid: 9de83824d257ddece8019db174f675eb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
